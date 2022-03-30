@@ -15,11 +15,9 @@ keypoints:
 - If you chose and instance type other than the suggested *t2.micro*, you will incur billing costs; turn your instance off once you stop using it.
 ---
 > ## Prerequisites
-> To complete this episode you will need to have:
-> 1. opened your AWS account --- if you haven't done so, follow the instructions in lesson 1 - episode 1: [Create Your AWS Account](https://cloud-span.github.io/create-aws-instance-1-open-account/01-create-your-account). 
-> 2. configured your AWS account with an IAM (Identity and Access Management) user account --- if you haven't done so, follow the instructions in lesson 1 - episode 2:  [Configure Your AWS Account](https://cloud-span.github.io/create-aws-instance-1-open-account/02-configure-your-account)
-> 
-> You also need your account **alias** or **12-digit number**, and your **IAM username** and **password**.
+> To complete this episode you will need
+> 1. To have opened and configured your AWS account. These are covered in the first lesson: [Open your AWS account](https://cloud-span.github.io/create-aws-instance-1-open-account). 
+> 2. Your account details: your **alias** or **12-digit number**, and your **IAM username** and **password**.
 {: .prereq}
 
 # Introduction
@@ -27,10 +25,10 @@ keypoints:
 > These are the main steps you will follow to create your AWS instance based on the Cloud-SPAN AMI:
 >
 > 1. **Login to your (AWS) IAM user account**.\
-> You should use your IAM account for creating your instance and for allocating and using any other AWS  resources. (Your Root account should only be used for high-level admin tasks such as updating billing information.)
+> You should use your IAM user account, not your Root account, for creating your instance and for allocating and using any other AWS  resources. 
 >
 > 2. **Create a login key pair to securely access your instance**.\
-> Access to your instance must be secured through encryption technology based on the matching of so called encrypted key files. You will create a pair of key files, one will be stored in your instance and the other one you will send it when accessing your instance to be matched with the first one. You can use a login key pair with as many instances as you want. 
+> Access to your instance must be secured through encryption technology based on the matching of so called encrypted key files. You will create a pair of *key files*, one will be stored in your instance and the other will be stored on your computer. 
 >
 > 3. **Create a security group**.\
 > A security group defines the communication channels/ports through which you can access your instance. You can use a security group with as many instances as you want. 
@@ -41,56 +39,46 @@ keypoints:
 
 # 1. Login to your AWS IAM user account
 
-Login to your IAM user account as follows. Open a new browser window and enter the address of the login page for your account IAM users; it is something like the following but you must use either your actual account alias or your 12-digit account number: 
+Login to your IAM user account by opening a new browser window and entering the address of the login page for your account IAM users. The address contains you account alias or your 12-digit account number: 
 - https://**youraccountalias**.signin.aws.amazon.com/console  
 - https://**123456789012**.signin.aws.amazon.com/console
 
-A page like the one below will appear. Please enter your IAM username and password. 
-
-If a **Security check** box pops up, complete it by typing the characters displayed into the box.
-
-![Caption.](../fig/create-instance/01-login-to-IAM-account.png "Caption 2.")
+Enter your IAM username and password. You may also get a **Security check** to complete.
 
 Once you are logged in, a page like the one below will appear.
 
-**IMPORTANT**: please check on the right of the AWS navigation bar (the black one at the top) that the default region is set to **Ireland** as shown. Set it to Ireland if it is not. 
+**IMPORTANT**: On the top right, check that the region is set to **Ireland**. Set it to Ireland if it is not. 
 
-Then click on the `EC2` orange icon --- or type **ec2** in the AWS search box and press Enter. Go to step 2. 
+Then click on the `EC2` orange icon.
 
-![Caption.](../fig/create-instance/02-logged-in-1st-page.png "Caption 2.")
+![Caption.](../fig/create-instance/02-logged-in-1st-page.png "The AWS console showing the region as Ireland in the top right and the orange EC2 icon on the left.")
 
 # 2. Create a key pair
 
-You should now see the Elastic Compute Cloud (EC2) menu page shown below, or a similar one. The page below is the **Instances** menu page, with no instances as none has been created. There are other menu pages for **Images** (AMIs), **Network & Security** and other EC2 resources.
+You should now see the Elastic Compute Cloud (EC2) menu. The **Instances** page is displayed and currently you have no instances. The navigation pane on the left gives access to other menu pages such as **Images** (AMIs), **Network & Security** and other EC2 resources.
 
-The navigation pane on the left gives access to these menu pages and (in the page below) shows in orange that the Instances menu page is the one being displayed. 
+Scroll down the left navigation pane until you reach **Network & Security** then select the **Key Pairs**.  
 
-![Caption.](../fig/create-instance/03-ec2-elastic-comput-cloud-menu-page.png "Caption 2.")
+On the page that apears, click on the orange button **Create key pair** on the top right. A page will appear where you need to:
+1. Enter a name for your key pair. Choose a meaningful name --- you are going to save a file with that name for later use. We used 'cloud-span-login-key'.
+2. Select **RSA** and **.pem** as shown in the page. 
+3. Click on **Create key pair** at the bottom right.
 
-To create your key pair, you need to select the **Key Pairs**  menu under **Network & Security** in the left navigation pane.  
+![Caption.](../fig/create-instance/07-ec2-key-pairs-create-page-filled.png "The Create key pair page where a name has been entered for the key (we used cloud-span-login-key) and the RSA and .pem options are selected")
 
-Scroll down the left navigation pane with the mouse until you see the **Key Pairs** menu and click on it.  The page below will be displayed:
-
-![Caption.](../fig/create-instance/05-ec2-key-pairs-menu.png "Caption 2.")
-
-Now click on the orange button **Create key pair** on the top right. The page below will appear where you need to (1) enter a name for your key pair (choose a meaningful name --- you are going to save a file with that name for later use), and (2) select the options **RSA** and **.pem** as shown in the page. You don't need to add tags. Then click on **Create key pair** at the bottom right.
-
-![Caption.](../fig/create-instance/07-ec2-key-pairs-create-page-filled.png "Caption 2.")
-
-Once you click on the **Create key pair** button in the page above, a page like the one below will appear prompting you to save the key file that you will use to access your instance.
+Once you click on the **Create key pair** button in the page above, you will be prompted to save the key file. 
 
 > ## Exercise
-> Make a note of where you save your login key file. We recommend that you create a new directory to save the file and naming the directory such that it is related to your instance or the work you plan to carry out in your instance, for example: **cloud_genomics**  or **aws_instance** or **cloud-span-instance**. If you are Windows user, you may also want to create the directory in the Desktop so that you can easily access it.
+> We recommend that you create a new directory named for your instance or work such as **cloud_genomics**  or **aws_instance** or **cloud-span-instance**. If you are Windows user, you may want to create the directory in the Desktop so that you can easily access it.
+> Now save the key file to that directory. If you used the name 'cloud-span-login-key', the file will be called 'cloud-span-login-key.pem'
 {: .challenge}
 
-![Caption.](../fig/create-instance/08-ec2-saving-login-key-pair-local-machine.png "Caption 2.")
+After you save your login key you will see a success message and your key pair listed.
 
-After you save your login key, a success page like the following will be diplayed.
-
-![Caption.](../fig/create-instance/09-ec2-login-key-pair-creation-success.png "Caption 2.")
+![Caption.](../fig/create-instance/09-ec2-login-key-pair-creation-success.png "The success message with a key pair listed")
 
 # 3. Create a security group
-To create your security group, you need to go to the **Security Groups** menu. It is just above the  **Key Pairs** menu on the left navigation pane. Click on it. The page below will appear:
+To create your security group select **Security Groups** under **Network & Security** on the left navigation pane. The Security Groups page will appear. A default security group will be listedwever, we need to create a security group for use with your instance with a specific set of ports and settings.
 
 ![Caption.](../fig/create-instance/10-ec2-security-groups-menu.png "Caption 2.")
 
