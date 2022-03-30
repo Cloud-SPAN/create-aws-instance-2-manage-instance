@@ -78,35 +78,37 @@ After you save your login key you will see a success message and your key pair l
 ![Caption.](../fig/create-instance/09-ec2-login-key-pair-creation-success.png "The success message with a key pair listed")
 
 # 3. Create a security group
-To create your security group select **Security Groups** under **Network & Security** on the left navigation pane. The Security Groups page will appear. A default security group will be listedwever, we need to create a security group for use with your instance with a specific set of ports and settings.
+To create your security group select **Security Groups** under **Network & Security** on the left navigation pane. The Security Groups page will appear. A default security group will be listed but we need to create a security group with specific settings for use with your instance.
 
-![Caption.](../fig/create-instance/10-ec2-security-groups-menu.png "Caption 2.")
+Click on the **Create security group** button on the top right. 
 
-Note in that page that your account comes with a default security group. However, we need to create a security group for use with your instance with a specific set of ports and settings.
+![Caption.](../fig/create-instance/10-ec2-security-groups-menu.png "The Security Groups page showing a default security group and the Create Security group button")
 
-Please click on the orange button **Create security group** on the top right. The page below will appear where you need to enter a name and a description for your security group (feel free to use our choices). 
+You now need to add a name and description for the security group. We used 'Cloud-SPAN Security Group' for the name and 'For instances created from Cloud-SPAN AMI' for the description.
 
-![Caption.](../fig/create-instance/11-ec2-security-groups-create-group-name.png "Caption 2.")
+![Caption.](../fig/create-instance/11-ec2-security-groups-create-group-name.png "Page showing 'Cloud-SPAN Security Group' entered in to the name box and 'For instances created from Cloud-SPAN AMI' entered in to the Description box.")
 
-Now scroll down the page until you see the heading **Inbound rules** as shown in the page below:
+Now scroll down the page until you see the heading **Inbound rules**. 
+We are going to specify four inbound rules.
+1. Click the **Add rule** button four times so that four rows appear. 
+2. On the left column (labelled **Type**), select **SSH** for rows 1 and 2 and **Custom TCP** for rows 3 and 4
+3. On the third column (labelled **Port range**) enter the number **8787** on rows 3 and 4
+4. On the fourth column (labelled **Source**), select **Anywhere-IPv4** for row 1 and 3 and **Anywhere-IPv6** for row 2 and 4
 
-![Caption.](../fig/create-instance/12-ec2-security-groups-inbound-rules-menu.png "Caption 2.")
+The first four columns of the table should look like this:
 
-We are going to specify four inbound rules by clicking on the **Add rule** button four times. Then, for each rule we are going to make a few selections mostly with the mouse such that the four rules will look like those in the page below (see further instructions below the page):
+| Type          | Protocol      | Port Range    | Source        |
+| ------------- | ------------- | ------------- | ------------- |
+| SSH           | TCP           | 22            | Anywhere-IPv4 |
+| SSH           | TCP           | 22            | Anywhere-IPv6 |
+| Custom TCP    | TCP           | 8787          | Anywhere-IPv4 |
+| Custom TCP    | TCP           | 8787          | Anywhere-IPv6 |
 
-![Caption.](../fig/create-instance/13-ec2-security-groups-inbound-rules-setup.png "Caption 2.")
+There is no need to define outbound rules nor tags. 
 
-So click the **Add rule** button four times so that four rows appear. On the left column (labelled **Type**), on the first row, click on the drop-down menu button (the little black triangle) and select **SSH** --- you may need to scroll down with the mouse to see SSH. Do likewise on the left column second row. 
+Scroll down to the end of the page and click **Create security group**. You should see the inbound rules for your security group listed.
 
-On the third column (labelled **Port range**), on the second and third rows, enter the number **8787**.  
-
-On the fourht column (labelled **Source**), on the first row, click on the drop-down menu and select **Anywhere-IPv4**; on the second row do likewise but select **Anywhere-IPv6**; on the third row select **Anywhere-IPv4** and on the fourth row select **Anywhere-IPv6**. 
-
-Your inbound rules should now look like those in the page above.
-
-There is no need to define outbound rules nor tags. So scroll down til the end of the page until you see on the right the orange button **Create security group** and click on it. A page similar to the one below will appear summarising you security group configuration.
-
-![Caption.](../fig/create-instance/15-ec2-security-groups-inbound-rules-created.png "Caption 2.")
+![Caption.](../fig/create-instance/15-ec2-security-groups-inbound-rules-created.png "The list of Inbound rules just created")
 
 # 4. Create your instance using the Cloud-SPAN AMI as source
 
