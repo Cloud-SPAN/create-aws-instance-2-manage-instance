@@ -124,66 +124,53 @@ Creating your instance involves these steps:
 
 ### 4.1. Selecting the Cloud-SPAN AMI
 
-Use the left navigation pane to select and go to the **Instances** menu page, shown below. In this page, click on the orange button **Launch instances** on the top right.
+Use the left navigation pane to select and go to the **Instances** and click **Launch instances** on the top right. Copy and paste Cloud-SPAN AMI id **ami-0284fdb43f03d509f** into the AMI search box in the middle of the page and press Enter.
 
-![Caption.](../fig/create-instance/16-ec2-instances-menu.png "Caption 2.")
-
-The page below will appear, wherein we are going to look for the Cloud-SPAN AMI whose full name and id is: 
+You should now see Cloud-SPAN AMI listed with its full name and id: 
 
 **CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f**.
 
-Copy and paste only the ami-id **ami-0284fdb43f03d509f** into the AMI search box in the middle of the page and press Enter.  
+Click **Select** on the right to choose the AMI.
 
-The page should now display the Cloud-SPAN AMI full name and id in the middle as in the page below. 
-
-Click on the blue button **Select** on the right to select it and go to the next step.
-
-![Caption.](../fig/create-instance/19-ec2-select-CSGC-AMI06.png "Caption 2.")
+![Caption.](../fig/create-instance/19-ec2-select-CSGC-AMI06.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button")
 
 ### 4.2. Select an instance type
+This is where we determine the combination of CPU, memory, storage and networking capacity of the instance. The instance type **t2.micro** should be selected by default. This instance type is *Free tier eligible*, meaning that you will not incur costs for using this instance type for 12 months since you opened you account. 
 
-The page below will appear after you have selected the Cloud-SPAN AMI in the page above. In the  page below your are to select the instance type for your instance. Usually the instance type **t2.micro** is selected (checked in blue) by default. This instance type is marked as being *Free tier eligible*, meaning that you will not incur costs for using this instance type for 12 months since you opened you account. 
+We recommend that you use this instance type first but we show you show to change to an instance with greater capacity in the next episode.
 
-We recommend that you use this instance type first and check if it has enough processing capacity for your work. You can easily change the instance type of your instance to an instance type with more capacity such as t2.small or t2.medium, as we will show you in the next episode.
+Now go to **6. Configure security group** at the top (we don't need the other steps).  
 
-Once you have selected the instance type for your instance, click on the option **6. Configure security group** at the top (we don't need to go through the other steps).  
-
-![Caption.](../fig/create-instance/20-ec2-choosing-instance-type-t2micro.png "Caption 2.")
+![Caption.](../fig/create-instance/20-ec2-choosing-instance-type-t2micro.png "The list of instance types shown on the 'Choose and Instance' page. The t2.micro is selected.")
 
 ### 4.3. Selecting your security group
+You have the option so **Create a new security group** or to **Select an existing security group**. We created a security group in Step 3 so choose **Select an existing security group**. 
 
-The page below will appear, showing the option **Create a new security group** as being selected. As we have already created our security group, click on the option just below **Select and existing security group**. 
+The page will refresh listing the default security group and the security group, "Cloud-SPAN Security Group" that we created in step 3. Select "Cloud-SPAN Security Group" and click **Review and launch**.
 
-![Caption.](../fig/create-instance/21-ec2-configure-security-group.png "Caption 2.")
+![Caption.](../fig/create-instance/22-ec2-select-security-group2.png "The page for Step 6: Configure Security Group. The 'Cloud-SPAN Security Group' is shown selected.")
 
-The page will be refreshed showing the default security group and the security group we created early. Select the one we created early as shown in the page, and then click on the blue button **Review and launch**.
+You will be presented with a summary of your instance configuration. You will need to scroll down to see all the details. The summary includes a warning that the Cloud-SPAN Security Group, is open to the world. This means that you can access your instance from anywhere in the world. It is of no concern as long as you don't share your login key file. 
 
-![Caption.](../fig/create-instance/22-ec2-select-security-group2.png "Caption 2.")
-
-The page below will appear, showing a summary of your instance configuration. You will need to scroll down the page with the mouse to see all the details.
-
-Note the message in light yellow "Improve your instances' security. Your security group, Cloud-SPAN Security Group, is open to the world". It means that you can access your instance from anywhere in the world. It is of no concern as long as you don't share your login key file. 
-
-Click on the blue button **Launch** on the bottom left. 
-
-![Caption.](../fig/create-instance/23-review-instance-launch-button.png "Caption 2.")
+Click on the **Launch** on the bottom left. 
 
 ### 4.4. Selecting your login key - and launching your instance
 
-The page below will appear, prompting you to select the login key to be used to access your instance. As we have already created a key pair, it will be selected as default and all you need to do is to check the box to acknowledge that you have saved and have access to the key file. 
+You will now be prompted to to select the login key to be used to access your instance. The key pair you created in Step 2  will be selected as default. You should also have saved the key, 'cloud-span-login-key.pem' to your computer. Check the box to acknowledge that you have saved and have access to the key file. 
 
-Note that it reminds you that, if you don't have access to such file, you will not be able to access your instance. 
+> ## Important note on access
+> You need your 'cloud-span-login-key.pem' to be able to access your instance
+{: .callout}
 
-Once you check the acknowledge box, you will then be able to click on the blue button **Launch Instances**.  
+Once you check the acknowledge box, you will then be able to **Launch Instances**.  
 
-**NB**: once you click on the **Launch Instances** button, your instance will be launched and will remain running until you stop it.  *If you selected an instance type other than t2.micro you will incur some cost*. 
+> ## Important note of cost
+> Once launched you instance will remain running until you stop it.  *If you selected an instance type other than t2.micro you will incur some cost*. 
+{: .callout}
 
-![Caption.](../fig/create-instance/24-ec2-select-login-key-checked-acknowledge.png "Caption 2.")
-
-Once you click on the **Launch Instances** button, the page below will appear. Scroll down the page and click on the blue button **View Instances** to go the Instances menu page where you will see your instance in the state *Pending* or *Running*.
+Once you **Launch Instances** you will be informed the instances are launching. Scroll down the page and click on **View Instances** to go the Instances menu page where you will see your instance in the state *Pending* or *Running*.
 
 The next episode [Manage Your AWS Instance](../02-manage-aws-instance) will introduce you to a few management tasks you need to operate your instance. 
 
-![Caption.](../fig/create-instance/25-ec2-instance-is-launching-message.png "Caption 2.")
 
 
