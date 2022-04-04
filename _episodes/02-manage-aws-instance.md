@@ -277,7 +277,7 @@ You should update your instance type gradually, trying first the next higher lev
 
 To change the instance type of your instance, go to the EC2 Instance menu page, select your instance (check the box on the left of its entry), click on the drop-down menu **Actions** at the top, click on **Instance settings**, click on **Change instance type**.
 
-![Caption.](../fig/manage-instance/08-ec2-changing-instance-type01.png "EC2 Instance menu page showing the Actions as Instance setttings | Change Instance type.")
+![Caption.](../fig/manage-instance/08-ec2-changing-instance-type01.png "EC2 Instance menu page showing the Actions as Instance setttings, Change Instance type.")
 
 You will see that your current instance type is t2.micro. Use the drop-down menu to change the instance type. you can choose. Note, the list  is ordered alphabetically not by size. Click on the **Apply**.
 
