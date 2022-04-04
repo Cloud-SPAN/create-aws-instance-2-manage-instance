@@ -103,7 +103,7 @@ In this section we are going to use `ssh` to access your instance in order to en
 
 To login into your AWS instance you'll need:
 - the name of your instance and a login key file
-- the shell/terminal application --- **Windows users** should have already installed the *Git Bash* shell; otherwise follow the directions in [Installing Git Bash](https://cloud-span.github.io/prenomics00-intro/setup.html
+- the shell/terminal application --- **Windows users** should have already installed the *Git Bash* shell; otherwise follow the directions in [Installing Git Bash](https://cloud-span.github.io/prenomics00-intro/setup.html)
 - the *secure shell* (**ssh**) application, which is readily available in MacOS, Linux and Windows. **Windows users** will use ssh through Git Bash. 
 
 As the name implies, **ssh** provides you with a secure (encrypted) way to use a remote *shell*.
