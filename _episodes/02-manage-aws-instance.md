@@ -76,13 +76,13 @@ Click on **Stop instance**. The state of your instance will change to *Stopping*
 
 Note that you can *Terminate instance* in any state. You **delete** an instance when you terminate it.  This operation is irreversible.  
 
-**Start instance** again if you stopped it, as you will need it *Running* to login to it in the next section.
+**Start instance** again if you stopped it, as you will need it *Running* for the next section.
 
 To name your instance point the mouse at the *Name* entry of your instance, click on it, type a name and press Enter. We used the name **csgc-instance01**. 
 
 ![Caption.](../fig/manage-instance/12-ec2-change-your-instance-name.png "The list of instances (there's only one) showing the Edit Name box which appears when you click on the Name entry. The name shows csgc-instance01").
 
-Naming your instance is not essential when you only have one instance but makes it easier when you are mamnaing several instances.
+Naming your instance is not essential when you only have one instance but makes it easier when you are managing several instances.
 
 # 3. Make a note of the *Public IPv4 DNS* of your instance
 
