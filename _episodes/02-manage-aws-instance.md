@@ -4,7 +4,7 @@ teaching: 20
 exercises: 10
 questions:
 - How to stop, start and delete my instance?
-- How to access/use my instance?
+- How to login to my instance?
 objectives:
 - Know the states of your instance and the operations to change its state.
 - Set billing alerts so that you can act promptly when costs are incurred.
@@ -17,7 +17,7 @@ keypoints:
 - Should you change the instance type of your instance, try the next higher-level instance type for some time.
 ---
 > ## Prerequisites
-> To complete this episode you will need to have created your instance as described in the previous episode [Create Your AWS Instance](../01-create-aws-instance).
+> To complete this episode you will need to have created your instance as described in the previous episode [Create Your AWS Instance](../01-create-aws-instance) and to login to your AWS IAM account as described in the previous episode too.
 > 
 > Windows users must have installed the Git Bash program --- see instructions here: [Installing Git Bash](https://cloud-span.github.io/prenomics00-intro/setup.html)
 {: .prereq}
@@ -54,7 +54,7 @@ The Billing Dashboard page:
 > When you go back to EC2 menu pages, check that your default region is Ireland. Set it thus if not, as otherwise you will not find the instance you created in the Ireland region in the previous episode.
 {: .callout}
 
-To setup billing alerts, on the left navigation pane, click on **Billing preferences**.  The page below will appear. Check all the three options as shown in the page, and then click on the blue button **Save prefences**. 
+To setup billing alerts, on the left navigation pane, click on **Billing preferences**.  The page below will appear. Check all the three options as shown in the page, and then click on the blue button **Save preferences**. 
 
 ![Caption.](../fig/manage-instance/02-ec2-instance-launching-set-cost-alerts.png "Caption 2.")
 
