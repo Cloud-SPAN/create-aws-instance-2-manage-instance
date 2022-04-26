@@ -17,143 +17,199 @@ keypoints:
 - Should you change the instance type of your instance, try the next higher-level instance type for some time.
 ---
 > ## Prerequisites
-> To complete this episode you will need to have created your instance as described in the previous episode [Create Your AWS Instance](../01-create-aws-instance) and to login to your AWS IAM account as described in the previous episode too.
+> To complete this episode you will need:
+> - to have created your instance as described in the previous episode [Create Your AWS Instance](../01-create-aws-instance) and 
+> - to login to your AWS IAM account as described in the previous episode too.
 > 
 > Windows users must have installed the Git Bash program --- see instructions here: [Installing Git Bash](https://cloud-span.github.io/prenomics00-intro/setup.html)
 {: .prereq}
 
 # Introduction
 > ## Steps
-> These are the base management tasks that you need to operate your instance that are covered below:
+> These are the base management tasks you need to operate your instance that are covered below:
 >
 > 1. **Set up billing alerts**.\
-> Setting up billing alerts in your account will allow to act promptly in case your account starts incurring costs you did not plan.
+> Setting up billing alerts in your account will enable you to act promptly in case your account starts incurring costs you did not plan.
 >
 > 2. **Stop, start, reboot or terminate your instance**.\
 > These are the base tasks you need to know to manage your instance. 
 >
-> 3. **Login to your instance**. \
+> 3. **Make a note of the Public IPv4 DNS address of your instance**
+>  This is in the form ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com where the N indicate the numbers that identify the instance. It is a *dynamic* address so that these numbers change when you stop and start your instance.
+> 
+> 4. **Login to your instance**. \
 > As launched, your instance has only access to an admin user account called **ubuntu**. We need to set up access to the Cloud-SPAN user account called **csuser** which is the account configured with both 'omics data and analysis tools.
 >
-> 4. **Update your instance type**.\
-> It is easy to change the instance type of your instance in case you need more processing power. You will incur costs if you use an instance type other than the **t2.micro** instance type.
+> 5. **Update your instance type**.\
+> It is easy to change the instance type of your instance in case you need more processing power. You are likely to incur costs if you use an instance type other than the **t2.micro** instance type, but see the next lesson [AWS costs explained](https://cloud-span.github.io/create-aws-instance-3-costs-explained/), episode [The AWS Free Tier](https://cloud-span.github.io/create-aws-instance-3-costs-explained/01-free-tier/index.html), where it is explained how you can use resources over the Free-Tier limits for short periods of time without incurring costs during the Free Tier period.
 {: .callout}
 
 # 1. Setup billing alerts
-To setup billing alerts, go to the **Billing Dashboard** page as follows. Once you are logged in to your IAM account, click on the drop-down menu *user@accountalias* (or *user@accountnumber* if you did not create an alias) that is on the far right at the top, see figure below. Then, in the menu that will drop down, click on **Billing Dashboard** and the page below the figure will appear.
+To setup billing alerts, go to the **Billing Dashboard** using the drop-down menu *user@accountalias* (or *user@accountnumber* if you did not create an alias) on the top right.
 
+On the Billing Dashboard page the region will be set to 'Global' on the top right. 
 
-![Caption.](../fig/manage-instance/00-selecting-billing-dashboard-1-2.png "Caption 2.")
-
-The Billing Dashboard page:
-
-![Caption.](../fig/manage-instance/00-selecting-billing-dashboard-2-2.png "Caption 2.")
-
-> ## Remember this:
-> Once the Billing Dashboard page is displayed, the default region will have changed (from Ireland) to Global --- see the region in the figure and in the page above. This is because the configuration options in the Billing Dashboard apply to your account (which can access many AWS regions) and not to any specific region.  
-> When you go back to EC2 menu pages, check that your default region is Ireland. Set it thus if not, as otherwise you will not find the instance you created in the Ireland region in the previous episode.
+> ## Note
+> The default region will have changed (from Ireland) to Global. This is because the configuration options in the Billing Dashboard apply to your account (which can access many AWS regions) and not to any specific region.  
 {: .callout}
 
-To setup billing alerts, on the left navigation pane, click on **Billing preferences**.  The page below will appear. Check all the three options as shown in the page, and then click on the blue button **Save preferences**. 
+You will need to change the region to 'Ireland' once you setup the billing alerts.
 
-![Caption.](../fig/manage-instance/02-ec2-instance-launching-set-cost-alerts.png "Caption 2.")
+To setup billing alerts select **Billing preferences** on the left navigation pane. Then check the following options:
+
+1. Receive PDF invoice By Email
+2. Receive Free Tier Usage Alerts
+3. Receive Billing Alerts
+
+And click on **Save prefences**. 
+
+![Caption.](../fig/manage-instance/02-ec2-instance-launching-set-cost-alerts.png "Billing preferences page showing the three options selected")
 
 # 2. Stop, start, reboot or terminate your instance
 
-The base operations to manage your instance are: *stop*, *start*, *reboot* and *terminate* instance. You can invoke these operations on your instance depending on its state.
+The operations to manage your instance are: *stop*, *start*, *reboot* and *terminate* instance. You can invoke these operations on your instance depending on its state.
 
 When you create and launch an instance it will be in the state *Pending* until its initialisation is complete --- a process that takes 1-2 minutes. Its state will then change to *Running* and will be in this state until you stop it. 
 
-To stop (or to perform any other operation on) your instance you need to be in the Instance menu page. Type **ec2** in the AWS search box and press Enter. Check the default region is **Ireland**; set it thus if not.  Then on the left navigation pane, click on **Instances**. The page below will appear.
+To stop (or to perform any other operation on) your instance you need to be in the **Instances** menu page. Type **ec2** in the AWS search box and press Enter. Check the default region is **Ireland**; set it thus if not.  Then on the left navigation pane, click on **Instances**. 
 
-![Caption.](../fig/manage-instance/03-ec2-created-instance-running.png "Caption 2.")
+You should see your instance listed with a state of *Pending* or *Running*. Check the box to the left of your instance entry and then click on the drop-down menu **Instance state**. The drop-down menu shows the operations you can perform while your instance is *Running*, namely: Stop instance, Reboot instance and Terminate instance. 
 
-The state of your instance will be *Pending* or *Running*. Now check the box to the left of your instance entry and then click on the drop-down menu **Instance state**, see the page below. You need to check the box to the left of your instance to perform any operation on it.
+![Caption.](../fig/manage-instance/04-ec2-instance-running-selected-state-options.png "The EC2 instances page the instance selected and the drop-down menu shown expanded with the options: Stop instance, Start instance (greyed out), Reboot instance, Hibernate instance (greyed out) and Terminate instance.")
 
-![Caption.](../fig/manage-instance/04-ec2-instance-running-selected-state-options.png "Caption 2.")
+Click on **Stop instance**. The state of your instance will change to *Stopping* and eventually to *Stopped*. The operations you can perform while your instance is *stopped* are: Start instance and Terminate instance. 
 
-The drop-down menu shows the operations you can perform while your instance is Running: Stop, Reboot and Terminate. You only need to click on the operation you want to be performed on your instance and it will be carried out. 
+Note that you can invoke **Terminate instance** in any state. You **delete** an instance when you terminate it.  This operation is irreversible.  
 
-Click on **Stop instance**. The state of your instance will change to *Stopping* and eventually to *Stopped*, see the page below, where we have also clicked on **Instance state** to show the operations you can perform while your instance is *Stopped*. 
+**Start instance** again if you stopped it, as you will need it *Running* for the next section.
 
-Note that you can *Terminate* your instance in any state. You **delete** an instance when you terminate it.  This operation is irreversible.  
+To name your instance point the mouse at the *Name* entry of your instance, click on it, type a name and press Enter. We used the name **csgc-instance01**. 
 
-*Start* your instance again if your stopped it, as you will need it *Running* to login to it in the next section.
+Naming your instance is not essential when you only have one instance but makes it easier when you are managing several instances.
 
-![Caption.](../fig/manage-instance/06-ec2-instance-stopped-state-options-no-IP-address.png "Caption 2.")
+![Caption.](../fig/manage-instance/12-ec2-change-your-instance-name.png "The list of instances (there's only one) showing the Edit Name box which appears when you click on the Name entry. The name shows csgc-instance01").
 
-# 3. Login to your instance
+# 3. Make a note of the *Public IPv4 DNS* address of your instance
 
-Windows users must have installed the Git Bash program to be able to complete this section (see instructions here [Installing Git Bash](https://cloud-span.github.io/prenomics00-intro/setup.html)).
+To see the Public IPv4 DNS address of your instance, your instance must be running and selected in the **Instances** menu page: you have (1) checked the box to the left of your instance entry and (2) selected **Start instance** from the drop-down menu **Instance state**. 
 
-To access your instance from your laptop or desktop machine, you need to use the program `ssh`. The term `ssh` stands for *Secure SHell*. `ssh` allows you to securely connect to remote machines through a so-called Command Line Interface (CLI), which is also widely known as *Terminal* or *Shell*. 
+Now select both the **Details** menu and then the **Instance summary** option on the left as shown in the page below. 
 
-`ssh` is readily available on Linux and MacOS platforms when a Terminal is opened. For Windows users, `ssh` is installed when Git Bash is installed and is available once you run Git Bash.
+The Public IPv4 DNS address of your instance will be shown on the right.
 
-In this section we are going to use `ssh` to access your instance in order to enable access to the Cloud-SPAN user account in your instance. You will then be able to access your Cloud-SPAN user account with `ssh`. Your instance is configured such that `ssh` must be used with the encrypted login key that you downloaded when you created your instance.
+The Public IPv4 DNS address is in the form **ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com** where the Ns indicate the numbers that identify the instance. It is a *dynamic* address so that these numbers change when you stop and start your instance.
 
-Open a Terminal. Windows users should run Git Bash which will open a terminal similar to that in Linux and MacOS. 
+![Caption.](../fig/manage-instance/11-ec2-getting-IP-address.png "The instance summary for csgc-instance01 showing the box checked and the Details menu selected. An arrow points out the Public IPv4 DNS address on the bottom right")
 
-In the terminal that opens, you will then see the shell prompt which has this form: *username@machineid: current-directory  $*  
-
-Prompts are configurable but most of them are configured to end with a dollar sign **$**. 
-
-Typical Linux and MacOS users shell prompt:
-~~~
-username@machineid:~ $ 
-~~~
-{: .bash}
+> ## Exercise
+> You will need the Public IPv4 DNS address below. Make a note of it or copy it to a text file.
+{: .challenge}
 
 
-Typical Git Bash terminal prompt:
-~~~
-username@machineid MINGW64 ~
-$
-~~~
-{: .bash}
+# 4. Login to your instance
 
-The "username" and "machineid" in the code boxes above will be different in your terminal and will correspond to the actual username and the name of the machine you are using. The symbol **~** is a shell variable that holds the name your home directory (/home/username/ in Linux). 
+In this section we are going to use `ssh` to access your instance in order to enable access to the Cloud-SPAN user account in your instance. You will then be able to access your Cloud-SPAN user account with `ssh` and your login key, the cloud-span-login-key.pem file you saved.
 
-In your terminal, use the the `cd` (change directory) command to go to the directory where you downloaded your login key file, and then the `ls` (list) command to list the content of the directory, as shown in the code boxes below.
+To login to your instance you'll need:
+- the name of your instance (the Public IPv4 DNS address obtained above) 
+- your login key file
+- the shell/terminal/command line interface (CLI) application --- **Windows users** should have already installed the *Git Bash* shell; otherwise follow the directions in [Installing Git Bash](https://cloud-span.github.io/prenomics00-intro/setup.html)
+- the *secure shell* (**ssh**) application, which is readily available in MacOS, Linux and Windows. **Windows users** will use ssh through Git Bash. 
 
-The example code and output below shows that our directory to save our login key was called *cloud-span-instance* and that we created it in the Desktop (directory), and that our login key file was named *cloud-span-login-key.pem*. 
+As the name implies, **ssh** provides you with a secure (encrypted) way to use a remote *shell*.
 
-In following the example codes below, in your terminal you must enter the name of the directory you created to save your login key file and the name of your login key file. And you must press Enter at the end of each command.
-~~~
-username@machineid MINGW64 ~ 
-$ cd Desktop/cloud-span-instance/ 
+## Open a Terminal and change the access permissions of your login key file
 
-username@machineid MINGW64 ~/Desktop/cloud-span-instance
-$ ls
-~~~
-{: .bash}
+1. **Open the *cloud-span-instance* folder where you saved cloud-span-login-key.pem**
 
-The `cd` command will **not** produce any output, but the prompt will be updated to display 
-the name of the directory you changed to.
+    Open your file manager and navigate to the `cloud-span-instance` folder (hint: we recommended you make the folder in your *Desktop* directory - but you might have made it somewhere else).
 
-The output of the `ls` command will be this (in our case):
-~~~
-cloud-span-login-key.pem                                   
-~~~
-{: .output}
+    The folder should contain the login key file, cloud-span-login-key.pem, and nothing else.
 
-Enter the `chmod` (change access mode) command below to change the access permissions of your login key file:
-~~~
-usernam@machineid MINGW64 ~/Desktop/cloud-span-instance
-$ chmod 700 cloud-span-login-key.pem
-~~~
-{: .bash}
+2. **Open your machine's shell application**
 
-There will be no output produced by `chmod`. As used above, `chmod` makes your login key file accessible to you only (and non-accessible to any other potential users of your computer), a condition that is required and checked by `ssh`.
+    For Windows users:
 
-Finally, the follwing command will enable access to your Cloud-SPAN user account. 
-~~~
-username@machineid MINGW64 ~/Desktop/cloud-span-instance
-$ ssh -i cloud-span-login-key.pem ubuntu@ec2-54-195-163-61.eu-west-1.compute.amazonaws.com /home/ubuntu/bin/usersAccessKeys-setup-MAIN.sh
-~~~
-{: .bash}
+    - Right click anywhere inside the blank space of the file manager, then select **Git Bash Here**.
+  
+    For Mac users:
 
-Its output will be this:
+    - Open **Terminal** in one window and type `cd` followed by a space. Do not press enter! Now open **Finder** in another window. Drag and drop the `cloud-span-instance` folder from the Finder to the Terminal. You should see the file path leading to your `cloud-span-instance` folder appear. Now press enter to navigate to the folder.
+
+    A new window will open - this is your command line interface, also known as the shell or the terminal. Once the terminal opens, it will display/output the **command prompt** to signal that it is ready to accept commands (instructions). The **command prompt** is 1 or 2 lines depending on your operating system (Windows, Linux, MacOS) and will be similar to the following.
+
+    Typical command prompt for Windows Git Bash users:
+
+    ~~~
+    username@machineid MINGW64 ~
+    $
+    ~~~
+    {: .output}
+
+    Obviously "username" and "machineid" in the Output box above will be different when you open a terminal and will correspond to the actual username and the name of the machine you are using. 
+
+    The character `$` is the typical ending of user prompts (the ending of admin users prompts is typically `#`). Commands you type will follow the `$`.
+    
+
+    Typical command prompt for Linux users:
+
+    ~~~
+    username@machineid:~ $
+    ~~~
+    {: .output}
+
+    Typical command prompt for MacOS users:
+
+    ~~~
+    machineid:~ username $
+    ~~~
+    {: .output}
+    
+3. **Check that you are in the right folder**
+
+    The terminal should have automatically set our `cloud-span-instance` folder as the current working directory. This is because we asked the terminal to open from a specific location.
+
+    You can also check by typing the letters `ls` after the command prompt and pressing enter. This will list all the files in the working directory AKA all files in the `cloud-span-instance` folder. In our case, this should be just one file, the login key, `cloud-span-login-key.pem `.
+
+4. **Change the access permissions of your login key file**
+
+    Enter the following command to change the access permissions of your file:
+    ~~~
+    $ chmod 700 cloud-span-login-key.pem  
+    ~~~
+    {: .bash}
+
+    The command `chmod` (change access mode) makes your login key file accessible to you only (and non-accessible to any other potential users of your computer), a condition that is required and checked by the program `ssh` that you will use next to login to your AWS instance. You will learn about file access permissions later in the course.
+
+## Login to your instance with ssh
+
+1. Copy and paste the command in the Code box below to your *terminal*:
+
+    Windows Git Bash users only:
+    - **copy** the command the usual Windows way: (1) highlight it with the mouse pointer while pressing the mouse left button and (2) press Ctrl-C (keys Ctrl and C simultaneously).
+    - but **paste** it the Linux/Unix way: by pressing the mouse middle button while hovering the mouse pointer over the Git Bash window. (Try with the right button if the middle button doesn't work.) Alternatively, right click and select `paste`.
+    Now use the back arrow to edit and replace the **NN-NNN-NNN-NN** with the numbers from your instance Public IPv4 DNS address.
+
+    ~~~
+    $ ssh -i cloud-span-login-key.pem ubuntu@ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com /home/ubuntu/bin/usersAccessKeys-setup-MAIN.sh
+    ~~~
+    {: .bash}
+
+
+2. The terminal will display a security message, after you enter the `ssh` command, *similar* to the one below: 
+
+    ~~~
+    The authenticity of host 'ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com (NN.NNN.NNN.NN)' can't be established.
+ED25519 key fingerprint is SHA256:o1D4h/Gz5TeeLCHmH1n7sVCtEvjsnViYG009M+GmkHI.
+    This key is not known by any other names
+    Are you sure you want to continue connecting (yes/no/[fingerprint])? yes 
+    ~~~
+    {: .output}
+
+    Type **yes** and Enter
+
+    
+The output will be this:
 ~~~
 usersAccessKeys-setup-MAIN.sh:  Setting up access keys for all users. Please wait.
 Updating ~/.ssh/authorized_keys to have only the last key.
@@ -163,19 +219,10 @@ DONE setting up access keys. Users should be able to login now.
 ~~~
 {: .output}
 
-If you get the following output message just before the output above, just type **yes** and press Enter to continue.
-~~~
-The authenticity of host 'ec2-54-195-163-61.eu-west-1.compute.amazonaws.com (54.195.163.61)' can't be established.
-ED25519 key fingerprint is SHA256:o1D4h/Gz5TeeLCHmH1n7sVCtEvjsnViYG009M+GmkHI.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-~~~
-{: .output}
-
-You should now be able to login to your Cloud-SPAN user account, which is called **csuser**, by typing the `ssh` comamnd below:
+You should now be able to login to your Cloud-SPAN user account, which is called **csuser**, by typing the `ssh` command below (obviously you need to change NN-NNN-.. as you did above):
 ~~~
 username@machineid MINGW64 ~/Desktop/cloud-span-instance
-$ ssh -i cloud-span-login-key.pem csuser@ec2-54-195-163-61.eu-west-1.compute.amazonaws.com
+$ ssh -i cloud-span-login-key.pem csuser@ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com
 ~~~
 {: .bash}
 
@@ -201,49 +248,24 @@ csuser@ip-172-31-47-156:~ $
 
 > ## Remember this:
 > In the `ssh` commands above:
-> - The part **-i your-login-key-file.pem** tells `ssh` the identity file it should use to login to your instance. `ssh` will only work if you first move with `cd` to the directory where your login key file is, and you should use the name of your file.
-> - The part **ec2-54-195-163-61.eu-west-1.compute.amazonaws.com** is the *Public IPv4 DNS* address of our instance. You need to use the address of your instance. It is shown below how you will get it.  
+> - The part **-i your-login-key-file.pem** tells `ssh` the identity file it should use to login to your instance. `ssh` will only work if the output of the command `ls` shows cloud-span-login-key.pem. That is, cloud-span-login-key.pem must be in your working directory.
+> - The part **ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com** is the *Public IPv4 DNS* address of our instance. You need to use the address of your instance.
 > - We use the **ubuntu** user account in the first `ssh` command above, and the **csuser** account in the second command.  
->   - The 'omics data and analysis tools are only available in the **csuser** account.   
->   - The **ubuntu** account should only be used to update software system wide. 
+>   - You should use **csuser** for day-to-day work. The [Prenomics](https://cloud-span.github.io/prenomics00-intro/) and [Genomics](https://cloud-span.github.io/00genomics) data and tools are only available in the **csuser** account.   
+>   - The **ubuntu** account should only be used for high level tasks. 
 {: .callout}
 
-### Getting the *Public IPv4 DNS* of your instance
 
-Your instance is configured to use a *dynamic* Public IPv4 DNS address. That means that that address will change every time you *Stop* and *Start* your instance. The part that changes is the four numbers between you 'ec2-' and '.eu-west-1.compute.amazonaws.com':
+# 5. Update your instance type
 
-ec2-**54-195-163-61**.eu-west-1.compute.amazonaws.com
-
-Once you start your instance (as described in section 2), you need to make a not of its address which you must then add to *yourusername@*, for example:
-
-ssh -i your login-key-file.pem  **csuser@**ec2-54-195-163-61.eu-west-1.compute.amazonaws.com
-
-ssh -i your login-key-file.pem  **ubuntu@**ec2-54-195-163-61.eu-west-1.compute.amazonaws.com
-
-Once your start your instance in the EC2 Instance menu page, you will see the Public IPv4 DNS address of your instance at the bottom right, see the page below.  
-
-Note that, for you to see the Public IPv4 address of your instance in the Instance menu page, your instance must have been checked (blue check box to the left of your instance entry), the **Details** menu must have been selected, and the drop-down menu **Instance summary** must have been clicked on. 
-
-Copy and paste the address of your instance to the screen where you will issue the `ssh` command, add the username, etc., and press Enter to login to your instance.
-
-![Caption.](../fig/manage-instance/11-ec2-getting-IP-address.png "Caption 2.")
-
-BTW, notice in the page above that we have named our instance *csgc-instance01*. You don't need to name your instance because you only have one. However, if you start managing a few instances it is most convenient to name them so that you can more easily select the one you intend to apply an operation on.
-
-To name your instance you only need to hoover the mouse pointer in the *Name* entry of your instance, click on it, type the name for your instance and press Enter or click on the **Save** button, see the page below.
-
-![Caption.](../fig/manage-instance/12-ec2-change-your-instance-name.png "Caption 2.")
-
-# 4. Update your instance type
-
-If you follow our suggestion to create your instance with the instance type t2.micro so that you don't incur costs under the *Free tier* (for 12 months since you opened your account), you should know that t2.micro has this configuration:
+We instructed you to create your instance using the t2.micro intance type so that you don't incur costs under the *Free tier* (for 12 months since you opened your account). This instance type has the following configuration:
 
 - 1 processor
 - 1 GB (Giga Byte) memory
 
-We believe this configuration is a good starting point while you become acquainted with your instance and the Cloud-SPAN resources inside it.  Eventually though, you may find that some of your analysis work takes too long to complete and you may be willing to incur some costs to improve the performance (reduce the response/execution time) of the applications you are using.
+We believe this configuration is a good starting point while you become acquainted with your instance and Cloud-SPAN's [Prenomics](https://cloud-span.github.io/prenomics00-intro/) and [Genomics](https://cloud-span.github.io/genomics01-intro).  Eventually though, you may want explore with your own data and find that your analysis takes too long to complete. If you are willing to incur some costs to improve  performance (reduce the response/execution time) of the applications you are using you can update your instance type.
 
-In that case you should update your instance type gradually, trying first the next higher level for some time, and if needed, changing to the next higher level.  After all, it is rather easy to change the instance type of your instance, as shown below.
+You should update your instance type gradually, trying first the next higher level for some time, and if needed, changing to the next higher level.  It is straightforward to change the instance type of your instance.
 
 > ## FYI: configuration of next higher-level instance types above t2.micro
 > t2.small
@@ -259,21 +281,15 @@ In that case you should update your instance type gradually, trying first the ne
 > - 8 GB memory
 {: .callout}
 
-To change the instance type of your instance, go to the EC2 Instance menu page, select your instance (check the box on the left of its entry), click on the drop-down menu **Actions** at the top, click on **Instance settings**, click on **Change instance type**, see the page below.   
+To change the instance type of your instance, go to the EC2 Instance menu page and select your instance (check the box on the left of its entry). Stop it if is not *Stopped*: select **Instance state** and then **Stop instance**. 
 
-![Caption.](../fig/manage-instance/08-ec2-changing-instance-type01.png "Caption 2.")
+Then click on the drop-down menu **Actions** at the top, clock on **Instance settings**, click on **Change instance type** as shown in the figure below.
 
-After the last click on **Change instance type** above, the page below will appear showing the current type of your instance under the text *Instance type*. 
+![Caption.](../fig/manage-instance/08-ec2-changing-instance-type01.png "EC2 Instance menu page showing the Actions as Instance setttings, Change Instance type.")
 
-Click on the drop-down menu to the right of the name of your instance type (t2.micro in the page below):
+In the page that appears you will see the current instance type of your instance: t2.micro. Click on the drop-down menu to display the list of instance types available and select one. Note that the list is ordered alphabetically not by size --- you may need to scroll up. Click on **Apply**.
 
-![Caption.](../fig/manage-instance/09-ec2-changing-instance-type02.png "Caption 2.")
-
-You will then see the list of instance types you can choose from, as shown below. You may need to scroll the list up and down with the mouse, as the list is ordered alphabetically, meaning that t2.large and t2.medium will be above t2.micro while t2.small will be below in the list.
-
-Click on the instance type you want to change to, and then click on the **Apply** button.
-
-![Caption.](../fig/manage-instance/10-ec2-changing-instance-type03.png "Caption 2.")
+![Caption.](../fig/manage-instance/10-ec2-changing-instance-type03.png "The change instance type page showing the drop-down menu")
 
 Finally, if you want to check that the configuration of your instance has changed according to the instance type you changed to, login to your instance (with *csuser*) and enter the commands `grep` and `nproc` as shown below to get displayed the amount of memory and the number processors available in your instance:
 

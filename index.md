@@ -6,7 +6,11 @@ An AWS instance is a virtual machine that runs on AWS *physical* servers. An AWS
 
 A software enviroment is called an Amazon Machine Image (AMI) in AWS terminology, and there is plenty of them to choose from. Some are configured as database servers, others as web servers, either with Windows or Linux, among many others. The virtualisation of hardware platforms allows AWS to run any instance on any *physical* server with enough capacity. This makes it possible to better use physical resources and hence offer competitive prices to users, among many other benefits that derive from virtualisation: representing and managing physical resources as software.
 
-You will create your instance by combining the Cloud-SPAN AMI with a virtualised hardware platform that, together, are *Free-tier* eligible, meaning that you will **not** incur billing costs for 12 months since you open your AWS account. You will learn about the AWS Free tier and other billing aspects relevant to your AWS account in the next lesson [AWS Costs Explained](https://cloud-span.github.io/create-aws-instance-3-costs-explained/). 
+ 
+> You will create your instance by combining the Cloud-SPAN AMI with a virtualised hardware platform. These are **Free-tier** eligible, meaning that you will **not** incur billing costs for 12 months from opening your AWS account
+> You will learn about the AWS Free tier and other billing aspects relevant to your AWS account in the next lesson [AWS Costs Explained](https://cloud-span.github.io/create-aws-instance-3-costs-explained/). 
+{: .callout}
+
 
 The Cloud-SPAN AMI is configured with Linux Ubuntu 20.04, 'omics data, and the following 'omics analysis tools:
 
