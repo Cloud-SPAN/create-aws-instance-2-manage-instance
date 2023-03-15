@@ -124,11 +124,15 @@ Creating your instance involves these steps:
 
 ### 4.1. Selecting the Cloud-SPAN AMI
 
-Use the left navigation pane to select and go to the **Instances** page and click **Launch instances** on the top right. Copy and paste Cloud-SPAN AMI id **ami-0284fdb43f03d509f** into the AMI search box in the middle of the page and press Enter.
+Use the left navigation pane to select and go to the **Instances** page and click **Launch instances** on the top right. 
 
-You should now see Cloud-SPAN AMI listed with its full name and id: 
+Copy-paste the Cloud-SPAN AMI id **ami-00c0ea23e53f48472** into the AMI search box and press Enter.
 
-**CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f**.
+You should now see that AMI listed with its full name and a bried description of its configuration, similar to this: 
+
+**CS-AMI08-30GB-UsrKeyMng-NoAuthKeys-EBScanIncrease-ENAenabled**\
+ami-00c0ea23e53f48472 (CS-AMI08-30GB-UKM-NAK-EBS+ENA)\
+AMI has (1) Elastic Network Adapter (ENA) enabled (2) 30GB of EBS storage (free tier), (3) can be increased, (4) no login keys (in /etc/ssh nor ubuntu ~/.ssh), (5) scripts copy the new sudo key to other accounts, when creating instances.
 
 Click **Select** on the right to choose the AMI.
 
