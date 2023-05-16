@@ -28,24 +28,25 @@ keypoints:
 > ## Steps
 > These are the base management tasks you need to operate your instance that are covered below:
 >
-> 1. **Set up billing alerts**.\
+> 1. [**Set up billing alerts**](#1-setup-billing-alerts).\
 > Setting up billing alerts in your account will enable you to act promptly in case your account starts incurring costs you did not plan.
 >
-> 2. **Stop, start, reboot or terminate your instance**.\
+> 2. [**Stop, start, reboot or terminate your instance**](#2-stop-start-reboot-or-terminate-your-instance).\
 > These are the base tasks you need to know to manage your instance. 
 >
-> 3. **Make a note of the Public IPv4 DNS address of your instance**
->  This is in the form ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com where the N indicate the numbers that identify the instance. It is a *dynamic* address so that these numbers change when you stop and start your instance.
+> 3. [**Make a note of the Public IPv4 DNS address of your instance**](#3-make-a-note-of-the-public-ipv4-dns-address-of-your-instance).
+>  This is in the form\
+*ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com* where the N indicate the numbers that identify the instance. It is a *dynamic* address so that these numbers change when you stop and start your instance.
 > 
-> 4. **Login to your instance**. \
+> 4. [**Login to your instance**](#4-login-to-your-instance). \
 > As launched, your instance has only access to an admin user account called **ubuntu**. We need to set up access to the Cloud-SPAN user account called **csuser** which is the account configured with both 'omics data and analysis tools.
 >
-> 5. **Update your instance type**.\
+> 5. [**Update your instance type**](#5-update-your-instance-type).\
 > It is easy to change the instance type of your instance in case you need more processing power. You are likely to incur costs if you use an instance type other than the **t2.micro** instance type, but see the next lesson [AWS costs explained](https://cloud-span.github.io/create-aws-instance-3-costs-explained/), episode [The AWS Free Tier](https://cloud-span.github.io/create-aws-instance-3-costs-explained/01-free-tier/index.html), where it is explained how you can use resources over the Free-Tier limits for short periods of time without incurring costs during the Free Tier period.
 {: .callout}
 
 # 1. Setup billing alerts
-To setup billing alerts, go to the **Billing Dashboard** using the drop-down menu *user@accountalias* (or *user@accountnumber* if you did not create an alias) on the top right.
+You have logged in to the AWS Console. To setup billing alerts, go to the **Billing Dashboard** using the drop-down menu *user@accountalias* (or *user@accountnumber* if you did not create an alias) on the top right.
 
 On the Billing Dashboard page the region will be set to 'Global' on the top right. 
 
@@ -63,7 +64,7 @@ To setup billing alerts select **Billing preferences** on the left navigation pa
 
 And click on **Save prefences**. 
 
-![Caption.](../fig/manage-instance/02-ec2-instance-launching-set-cost-alerts.png "Billing preferences page showing the three options selected")
+![Caption.](../fig/manage-instance/02-ec2-instance-launching-set-cost-alerts.png "Billing preferences page showing the three options selected"){: width="900px"}
 
 # 2. Stop, start, reboot or terminate your instance
 
@@ -75,7 +76,7 @@ To stop (or to perform any other operation on) your instance you need to be in t
 
 You should see your instance listed with a state of *Pending* or *Running*. Check the box to the left of your instance entry and then click on the drop-down menu **Instance state**. The drop-down menu shows the operations you can perform while your instance is *Running*, namely: Stop instance, Reboot instance and Terminate instance. 
 
-![Caption.](../fig/manage-instance/04-ec2-instance-running-selected-state-options.png "The EC2 instances page the instance selected and the drop-down menu shown expanded with the options: Stop instance, Start instance (greyed out), Reboot instance, Hibernate instance (greyed out) and Terminate instance.")
+![Caption.](../fig/manage-instance/04-ec2-instance-running-selected-state-options.png "The EC2 instances page the instance selected and the drop-down menu shown expanded with the options: Stop instance, Start instance (greyed out), Reboot instance, Hibernate instance (greyed out) and Terminate instance."){: width="900px"}
 
 Click on **Stop instance**. The state of your instance will change to *Stopping* and eventually to *Stopped*. The operations you can perform while your instance is *stopped* are: Start instance and Terminate instance. 
 
@@ -87,7 +88,7 @@ To name your instance point the mouse at the *Name* entry of your instance, clic
 
 Naming your instance is not essential when you only have one instance but makes it easier when you are managing several instances.
 
-![Caption.](../fig/manage-instance/12-ec2-change-your-instance-name.png "The list of instances (there's only one) showing the Edit Name box which appears when you click on the Name entry. The name shows csgc-instance01").
+![Caption.](../fig/manage-instance/12-ec2-change-your-instance-name.png "The list of instances (there's only one) showing the Edit Name box which appears when you click on the Name entry. The name shows csgc-instance01"){: width="900px"}
 
 # 3. Make a note of the *Public IPv4 DNS* address of your instance
 
@@ -99,7 +100,7 @@ The Public IPv4 DNS address of your instance will be shown on the right.
 
 The Public IPv4 DNS address is in the form **ec2-NN-NNN-NNN-NN.eu-west-1.compute.amazonaws.com** where the Ns indicate the numbers that identify the instance. It is a *dynamic* address so that these numbers change when you stop and start your instance.
 
-![Caption.](../fig/manage-instance/11-ec2-getting-IP-address.png "The instance summary for csgc-instance01 showing the box checked and the Details menu selected. An arrow points out the Public IPv4 DNS address on the bottom right")
+![Caption.](../fig/manage-instance/11-ec2-getting-IP-address.png "The instance summary for csgc-instance01 showing the box checked and the Details menu selected. An arrow points out the Public IPv4 DNS address on the bottom right"){: width="900px"}
 
 > ## Exercise
 > You will need the Public IPv4 DNS address below. Make a note of it or copy it to a text file.
@@ -118,7 +119,7 @@ To login to your instance you'll need:
 
 As the name implies, **ssh** provides you with a secure (encrypted) way to use a remote *shell*.
 
-## Open a Terminal and change the access permissions of your login key file
+### Open a Terminal and change the access permissions of your login key file
 
 1. **Open the *cloud-span-instance* folder where you saved cloud-span-login-key.pem**
 
@@ -181,7 +182,7 @@ As the name implies, **ssh** provides you with a secure (encrypted) way to use a
 
     The command `chmod` (change access mode) makes your login key file accessible to you only (and non-accessible to any other potential users of your computer), a condition that is required and checked by the program `ssh` that you will use next to login to your AWS instance. You will learn about file access permissions later in the course.
 
-## Login to your instance with ssh
+### Login to your instance with ssh
 
 1. Copy and paste the command in the Code box below to your *terminal*:
 
@@ -285,11 +286,11 @@ To change the instance type of your instance, go to the EC2 Instance menu page a
 
 Then click on the drop-down menu **Actions** at the top, clock on **Instance settings**, click on **Change instance type** as shown in the figure below.
 
-![Caption.](../fig/manage-instance/08-ec2-changing-instance-type01.png "EC2 Instance menu page showing the Actions as Instance setttings, Change Instance type.")
+![Caption.](../fig/manage-instance/08-ec2-changing-instance-type01.png "EC2 Instance menu page showing the Actions as Instance setttings, Change Instance type."){: width="900px"}
 
 In the page that appears you will see the current instance type of your instance: t2.micro. Click on the drop-down menu to display the list of instance types available and select one. Note that the list is ordered alphabetically not by size --- you may need to scroll up. Click on **Apply**.
 
-![Caption.](../fig/manage-instance/10-ec2-changing-instance-type03.png "The change instance type page showing the drop-down menu")
+![Caption.](../fig/manage-instance/10-ec2-changing-instance-type03.png "The change instance type page showing the drop-down menu"){: width="900px"}
 
 Finally, if you want to check that the configuration of your instance has changed according to the instance type you changed to, login to your instance (with *csuser*) and enter the commands `grep` and `nproc` as shown below to get displayed the amount of memory and the number processors available in your instance:
 

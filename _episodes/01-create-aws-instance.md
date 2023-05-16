@@ -9,10 +9,10 @@ objectives:
 - Know the components that make up an AWS instance.
 - Understand the process to assemble those components into an AWS instance.
 keypoints:
-- Encrypted login keys must be used to secure the use of AWS instances. Login keys can be used with multiple instances.
+- Encrypted login keys must be used to secure access to AWS instances. A login key can be used with multiple instances.
 - A security group defines the communication channels to reach your instance. A security group can be used with multiple instances.  
-- Your instance comprises the Cloud-SPAN AMI (software environment) and a virtualised hardware plaform called *instance type*. 
-- If you chose and instance type other than the suggested *t2.micro*, you are likely to incur billing costs; turn your instance off once you stop using it.
+- Your instance comprises a software environment (a Cloud-SPAN AMI) and a virtualised hardware plaform called *instance type*. 
+- If you chose and instance type other than *t2.micro*, you are likely to incur billing costs; turn your instance off once you stop using it.
 ---
 > ## Prerequisites
 > To complete this episode you will need:
@@ -22,24 +22,24 @@ keypoints:
 
 # Introduction
 > ## Steps
-> These are the main steps you will follow to create your AWS instance based on the Cloud-SPAN AMI:
+> These are the main steps you will follow to create your AWS instance based on a Cloud-SPAN AMI:
 >
-> 1. **Login to your (AWS) IAM user account**.\
-> You should use your IAM user account, not your Root account, for creating your instance and for allocating and using any other AWS  resources. 
+> 1. **[Login to your (AWS) IAM user account](#1-login-to-your-aws-iam-user-account).**\
+You should use your IAM user account, not your Root account, for creating your instance and for allocating and using any other AWS resources. 
 >
-> 2. **Create a login key pair to securely access your instance**.\
-> Access to your instance must be secured through encryption technology based on the matching of so called encrypted key files. You will create a pair of *key files*, one will be stored in your instance and the other will be stored on your computer. 
+> 2. **[Create a login key pair to securely access your instance](#2-create-a-key-pair).**\
+> Access to your instance must be secured through encryption technology based on the matching of so called encrypted key files. You will create a pair of *key files*, one will be stored in your instance and the other will be stored on your computer. You can use a pair of key files with as many instances as you want. 
 >
-> 3. **Create a security group**.\
+> 3. **[Create a security group](#3-create-a-security-group).**\
 > A security group defines the communication channels/ports through which you can access your instance. You can use a security group with as many instances as you want. 
 >
-> 4. **Create your instance based on the Cloud-SPAN AMI**.\
-> You will first select the Cloud-SPAN AMI as the software template for your instance. You will then attach to your instance (1) a (virtualised) hardware configuration that includes the number of processors and the amount of memory, (2) the security group configuration and (3) the login key created in the two previous steps. The last step will launch your instance.
+> 4. **[Create your instance based on the Cloud-SPAN AMI](#4-create-your-instance-using-the-cloud-span-ami-as-source).**\
+> You will first select one of the Cloud-SPAN AMIs as the software template for your instance. You will then attach to your software template: (1) a (virtualised) hardware configuration that includes the number of processors and the amount of main memory, (2) the login key and (2) the security group configuration you in the two previous steps. Finally you will launch your instance.
 {: .callout}
 
 # 1. Login to your AWS IAM user account
 
-Login to your IAM user account by opening a new browser window and entering the address of the login page for your account IAM users. The address contains you account alias or your 12-digit account number: 
+Login to your IAM user account by opening a new browser window and entering the address of the login page for your IAM user account. The address contains you account alias or your 12-digit account number: 
 - https://**youraccountalias**.signin.aws.amazon.com/console  
 - https://**123456789012**.signin.aws.amazon.com/console
 
@@ -47,132 +47,159 @@ Enter your IAM username and password. You may also get a **Security check** to c
 
 Once you are logged in, a page like the one below will appear.
 
-**IMPORTANT**: On the top right, check that the region is set to **Ireland**. Set it to Ireland if it is not. 
+**IMPORTANT**: On the top right, check that the region is set to Ireland. **Set it** to **Ireland** if it is not. 
 
 Then click on the `EC2` orange icon.
 
-![Caption.](../fig/create-instance/02-logged-in-1st-page.png "The AWS console showing the region as Ireland in the top right and the orange EC2 icon on the left.")
+![Caption.](../fig/create-instance/01-logged-in-ensure-ireland-region-click-on-ec2.png "The AWS console showing the region as Ireland in the top right and the orange EC2 icon on the left."){: width="900px"}
 
 # 2. Create a key pair
 
-You should now see the Elastic Compute Cloud (EC2) menu. The **Instances** page is displayed showing that currently you have no instances. The navigation pane on the left gives access to other menu pages such as **Images** (AMIs), **Network & Security** and other EC2 resources.
+You should now see the Elastic Compute Cloud (EC2) Dashboard /Resources. The EC2 navigation pane on the left gives access to other menu pages such as **Instances**, **Images** (AMIs), and other EC2 resources.
 
-Scroll down the left navigation pane until you reach **Network & Security** and then select **Key Pairs**.  
+Scroll down the left navigation pane until you reach **Network & Security** and then click **Key Pairs**.  
 
-On the page that apears, click on the orange button **Create key pair** on the top right. The page below will appear where you need to:
+![Caption.](../fig/create-instance/02-select-keyPairs-on-left-menu-pane.png "The AWS console showing the region as Ireland in the top right and the orange EC2 icon on the left."){: width="900px"}
+
+On the page that apears, "Key pairs", click on the orange button **Create key pair** on the top right. 
+
+![Caption.](../fig/create-instance/03-key-pairs-menu-select-createKeyPair.png "The AWS console showing the region as Ireland in the top right and the orange EC2 icon on the left."){: width="900px"}
+
+
+On the page that appears, "Create key pair":
 1. Enter a name for your key pair. Choose a meaningful name --- you are going to save a file with that name for later use. We used 'cloud-span-login-key'.
-2. Select **RSA** and **.pem** as shown in the page. 
+2. Select **RSA** and **.pem** as shown in the page below. 
 3. Click on **Create key pair** at the bottom right.
 
-![Caption.](../fig/create-instance/07-ec2-key-pairs-create-page-filled.png "The Create key pair page where a name has been entered for the key (we used cloud-span-login-key) and the RSA and .pem options are selected")
+![Caption.](../fig/create-instance/04-key-pairs-create-page-filled.png "The Create key pair page where a name has been entered for the key (we used cloud-span-login-key) and the RSA and .pem options are selected"){: width="900px"}
 
 Once you click on the **Create key pair** button in the page above, you will be prompted to save the key file. 
 
 > ## Exercise
-> We recommend that you create a new directory named for your instance or work such as **cloud_genomics**  or **aws_instance** or **cloud-span-instance**. If you are a Windows user, you may want to create the directory in the Desktop so that you can easily access it.
+> We recommend that you create a new directory with a name that makes reference to your instance or work such as **cloud_genomics**  or **aws_instance** or **cloud-span-instance**. If you are a Windows user, you may want to create the directory in the Desktop so that you can easily access it.
 > Now save the key file to that directory. If you used the name 'cloud-span-login-key', the file will be called 'cloud-span-login-key.pem'
 {: .challenge}
 
-After you save your login key you will see a success message and your key pair listed.
+> ## Important note on access
+> You will need your 'login-key-file.pem' to be able to access your instance.
+{: .callout}
 
-![Caption.](../fig/create-instance/09-ec2-login-key-pair-creation-success.png "The success message with a key pair listed")
+After you save your login key the AWS Console will display a success message and your key pair listed.
+
+![Caption.](../fig/create-instance/05-key-pair-creation-success.png "The success message with a key pair listed"){: width="900px"}
 
 # 3. Create a security group
-To create your security group select **Security Groups** under **Network & Security** on the left navigation pane. The Security Groups page will appear. A default security group will be listed but we need to create a security group with specific settings for use with your instance.
+To create your security group select **Security Groups** under **Network & Security** on the left navigation pane. The "Security Groups" page will appear. 
 
-Click on the **Create security group** button on the top right. 
+![Caption.](../fig/create-instance/06-security-groups-menu-page-select-createSecGrp.png "The Security Groups page showing a default security group and the Create Security Groups button"){: width="900px"}
 
-![Caption.](../fig/create-instance/10-ec2-security-groups-menu.png "The Security Groups page showing a default security group and the Create Security group button")
+A **default** security group will be listed but we need to create a security group with specific settings for use with your instance. Click on the **Create security group** button on the top right. 
 
-You now need to add a name and description for the security group. We used 'Cloud-SPAN Security Group' for the name and 'For instances created from Cloud-SPAN AMI' for the description.
+On the page that appears, "Create security group", add a name and a description for the security group you are about to create. We used *Cloud-SPAN Security Group* for the name and *For instances created from Cloud-SPAN AMI* for the description:
 
-![Caption.](../fig/create-instance/11-ec2-security-groups-create-group-name.png "Page showing 'Cloud-SPAN Security Group' entered in to the name box and 'For instances created from Cloud-SPAN AMI' entered in to the Description box.")
+![Caption.](../fig/create-instance/07-security-group-name-entered.png "The Security Groups page showing a default security group and the Create Security group button"){: width="900px"}
 
 Now scroll down the page until you see the heading **Inbound rules**. 
 We are going to specify four inbound rules.
-1. Click the **Add rule** button four times so that four rows appear. 
-2. On the left column (labelled **Type**), select **SSH** for rows 1 and 2 and **Custom TCP** for rows 3 and 4
-3. On the third column (labelled **Port range**) enter the number **8787** on rows 3 and 4
-4. On the fourth column (labelled **Source**), select **Anywhere-IPv4** for row 1 and 3 and **Anywhere-IPv6** for row 2 and 4
+1. Click the **Add rule** button four times so that four rows appear, see page below. 
+2. On the left column (labelled **Type**), click the drop-down menu button and then select **SSH** for rows 1 and 2 and **Custom TCP** for rows 3 and 4.
+3. On the third column (labelled **Port range**) enter the number **8787** on rows 3 and 4.
+4. On the fourth column (labelled **Source**), click the drop-down menu button and then select **Anywhere-IPv4** for row 1 and 3 and **Anywhere-IPv6** for row 2 and 4.
 
 The first four columns of the table should now look like this:
 
-| Type          | Protocol      | Port Range    | Source        |
-| ------------- | ------------- | ------------- | ------------- |
-| SSH           | TCP           | 22            | Anywhere-IPv4 |
-| SSH           | TCP           | 22            | Anywhere-IPv6 |
-| Custom TCP    | TCP           | 8787          | Anywhere-IPv4 |
-| Custom TCP    | TCP           | 8787          | Anywhere-IPv6 |
+![Caption.](../fig/create-instance/07-security-groups-setup-of-inbound-rules.png "The Security Groups page showing a default security group and the Create Security group button"){: width="900px"}
 
 There is no need to define outbound rules nor tags. 
 
-Scroll down to the end of the page and click **Create security group**. You should see the inbound rules for your security group listed.
+Scroll down to the end of the page and click **Create security group**. You should see the inbound rules for your security group listed as shown in the page below.
 
-![Caption.](../fig/create-instance/15-ec2-security-groups-inbound-rules-created.png "The list of Inbound rules just created")
+![Caption.](../fig/create-instance/08-security-group-inbound-rules-created.png "The list of Inbound rules just created"){: width="900px"}
 
-# 4. Create your instance using the Cloud-SPAN AMI as source
+
+# 4. Create your instance using a Cloud-SPAN AMI
 
 Creating your instance involves these steps:
 
-4.1 Selecting the Cloud-SPAN AMI as source.
+4.1 Selecting a Cloud-SPAN AMI.
 
 4.2 Selecting an instance type.
 
-4.3 Selecting the security group.
+4.3 Selecting your login key.
 
-4.4 Selecting the login key --- after this selection your instance will be automatically launched.
+4.4 Selecting your security group --- and launching your instance.
 
-### 4.1. Selecting the Cloud-SPAN AMI
+### 4.1. Selecting a Cloud-SPAN AMI
 
-Use the left navigation pane to select and go to the **Instances** page and click **Launch instances** on the top right. 
+Use the EC2 navigation pane on the left to select and go to the **Instances** page and then click **Launch instances** on the top right:
 
-Copy-paste the Cloud-SPAN AMI id **ami-00c0ea23e53f48472** into the AMI search box and press Enter.
+![Caption.](../fig/create-instance/09-instances-menu-page-select-launchInstances.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
 
-You should now see that AMI listed with its full name and a bried description of its configuration, similar to this: 
+On the page that appears, "Launch an Instance": 
+- Enter a name for your instance. 
+- Copy-paste the AWS resource **id** (identification) of the Cloud-SPAN AMI of which you want your instance to be a copy:
+  - Genomics AMI - id: **ami-00c0ea23e53f48472**
+  - MetaGenomics AMI (Benchmarking data) - id: **ami-05638f7c51319ddba**
+  - MetaGenomics AMI (Environmental data) - id: **ami-05f71c318f5ed1568** 
+- Press Enter once you have copy-pasted the AMI-id.
 
-**CS-AMI08-30GB-UsrKeyMng-NoAuthKeys-EBScanIncrease-ENAenabled**\
-ami-00c0ea23e53f48472 (CS-AMI08-30GB-UKM-NAK-EBS+ENA)\
-AMI has (1) Elastic Network Adapter (ENA) enabled (2) 30GB of EBS storage (free tier), (3) can be increased, (4) no login keys (in /etc/ssh nor ubuntu ~/.ssh), (5) scripts copy the new sudo key to other accounts, when creating instances.
+![Caption.](../fig/create-instance/10-create-instance-page1-name-n-AMI-entered.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
 
-Click **Select** on the right to choose the AMI.
+You will now be presented with the "Choose an Amazon Machine Image (AMI)" page. Click on **Community AMIs (1)**:
+![Caption.](../fig/create-instance/11-selecting-community-AMI.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
 
-![Caption.](../fig/create-instance/19-ec2-select-CSGC-AMI06.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button")
+The page will now display a description of the Cloud-SPAN AMI whose id you entered. Click on the **Select** button on the right. 
 
-### 4.2. Select an instance type
-This is where we determine the combination of CPU, memory, storage and networking capacity of the instance. The instance type **t2.micro** should be selected by default. This instance type is *Free tier eligible*, meaning that you will not incur costs for using this instance type for 12 months since you opened you account. 
+![Caption.](../fig/create-instance/12-community-CS-AMI08-selected.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
 
-We recommend that you use this instance type first but we show you show to change to an instance type with greater capacity in the next episode.
+### 4.2. Selecting an instance type
+Once you click on the **Select** button above, the page "Launch an Instance" will be displayed again summarising technical information of the Cloud-SPAN AMI selected. 
 
-Now go to **6. Configure security group** at the top (we don't need the other steps).  
+Scroll down the page until you see the heading **Instance type**. The box under this heading will show the technical specifications and price per hour of the instance type for the instance to be created. *By default*, this box shows the specifications and price of the instance type **t2.micro** and that it is *Free-tier eligible*, meaning that you will not incur compute cost for one year from opening your AWS account. This instance type has 1 CPU and 1 GB memory.  
 
-![Caption.](../fig/create-instance/20-ec2-choosing-instance-type-t2micro.png "The list of instance types shown on the 'Choose and Instance' page. The t2.micro is selected.")
+![Caption.](../fig/create-instance/14-create-instance-page2-selecting-instanceTyp.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
 
-### 4.3. Selecting your security group
-You will now see the options to **Create a new security group** or to **Select an existing security group**. We created a security group in Step 3 so choose **Select an existing security group**. 
+The instance type **t2.micro** can be used with the Genomics AMI --- **but should not be used** with the Metagenomics AMIs, as your instance will be too slow.
 
-The page will refresh listing the default security group and the security group "Cloud-SPAN Security Group" that we created in step 3. Select "Cloud-SPAN Security Group" and click **Review and launch**.
+If you are creating your AWS instance with the Genomics AMI, we recommend that you use the instance type t2.micro first. And if you find your instance too slow, you can change to an instance type with more compute capacity as described in the next episode. If you decide on using the t2.micro instance type, continue below in [4.3 Selecting your login key](#43-selecting-your-login-key).
 
-![Caption.](../fig/create-instance/22-ec2-select-security-group2.png "The page for Step 6: Configure Security Group. The 'Cloud-SPAN Security Group' is shown selected.")
+If you want to use the same instance type used by the Cloud-SPAN team with the Genomics AMI, namely, t3.small, or if you are creating your AWS instance with a Metagenomics AMI:
 
-You will be presented with a summary of your instance configuration. You will need to scroll down to see all the details. The summary includes a warning in yellow: "... Your security group, Cloud-SPAN Security Group, is open to the world". This means that you can access your instance from any machine. This is of no concern as long as you don't share your login key file. 
+- click on the drop-down menu shown below --- a **search box** and a **list** of instance types will pop up.
+- type **t3** in the search box so that the list gets updated to show t3 instance types only.
+- scroll down the list until the instance type of your choice is shown:
+  - **t3.small** for the Genomics AMI
+  - **t3.2xlarge** for the Metagenomics AMIs
+- select the your instance type by clicking anywhere inside its description box.  
 
-Click on **Launch** on the bottom right. 
+Now scroll down untl you see the heading **Key pair (login)**.
 
-### 4.4. Selecting your login key - and launching your instance
+![Caption.](../fig/create-instance/15-instanceType-selected.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
 
-You will now be prompted to select the login key to be used to access your instance. The key pair you created in Step 2  will be selected as default. You should also have saved the key, 'cloud-span-login-key.pem' to your computer. Check the box to acknowledge that you have saved and have access to the key file. 
+### 4.3. Selecting your login key 
 
-> ## Important note on access
-> You need your 'cloud-span-login-key.pem' to be able to access your instance
-{: .callout}
+You will now select the login key to be used to access your instance. Click the drop-down menu of the **Key pair name** box, and then click on the name of your login key that you created in Section [2 Create a key pair](#2-create-a-key-pair). 
 
-Once you check the acknowledge box, you will then be able to click on **Launch Instances** to trigger the launch of your instance.
+![Caption.](../fig/create-instance/16-select-login-key.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
+
+### 4.4. Selecting your security group - and launching your instance
+Scroll down until you see the heading **Network settings**. Click on **Select existing security group** --- the box **Security groups** will be displayed. Click on the drop-down menu of this box, and check (or click on the name of) the security group your created in Section [3. Create a security group](#3-create-a-security-group).
+
+Finally, click on the **Launch instance** button on the right.
+
+![Caption.](../fig/create-instance/17-select-security-group.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
+
+You will then be presented with the success message below. Click on **Instances** on the top left. 
+
+![Caption.](../fig/create-instance/18-instance-launched-message.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
+
+The "Instances" page will be presented showing that your instance has been created and is running:
+
+![Caption.](../fig/create-instance/19-instances-page-showing-new-instance.png "The AMI selection page listing the CSGC-AMI06-30GB-UsrKeyMng-NoAuthKeys - ami-0284fdb43f03d509f instance and showing the Select button"){: width="900px"}
 
 > ## Important note of cost
-> Once launched your instance will remain running until you stop it.  *If you selected an instance type other than t2.micro you are likely to incur some cost*. 
+> Once launched, your instance will remain running until you stop it.  *If you selected an instance type other than t2.micro you are likely to incur some cost*. 
 {: .callout}
-
-Once you **Launch Instances** you will be informed the instances are launching. Scroll down the page and click on **View Instances** to go the Instances menu page where you will see your instance in the state *Pending* or *Running*.
 
 The next episode [Manage Your AWS Instance](../02-manage-aws-instance) will introduce you to a few management tasks you need to operate your instance. 
 
