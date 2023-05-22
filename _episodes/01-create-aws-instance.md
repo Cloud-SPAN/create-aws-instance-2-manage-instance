@@ -162,7 +162,7 @@ Scroll down the page until you see the heading **Instance type**. The box under 
 
 The instance type **t2.micro** can be used with the Genomics AMI --- **but should not be used** with the Metagenomics AMIs, as your instance will be too slow.
 
-If you are creating your AWS instance with the Genomics AMI, we recommend that you use the instance type t2.micro first. And if you find your instance too slow, you can change to an instance type with more compute capacity as described in the next episode. If you decide on using the t2.micro instance type, continue below in [4.3 Selecting your login key](#43-selecting-your-login-key).
+If you are creating your AWS instance with the Genomics AMI, we recommend that you use the instance type t2.micro first. And if you find your instance too slow, **you can change to an instance type with more compute capacity** as described in the next episode. If you decide on using the t2.micro instance type, continue below in [4.3 Selecting your login key](#43-selecting-your-login-key).
 
 If you want to use the same instance type used by the Cloud-SPAN team with the Genomics AMI, namely, t3.small, or if you are creating your AWS instance with a Metagenomics AMI:
 

@@ -42,11 +42,11 @@ keypoints:
 > As launched, your instance has only access to an admin user account called **ubuntu**. We need to set up access to the Cloud-SPAN user account called **csuser** which is the account configured with both 'omics data and analysis tools.
 >
 > 5. [**Update your instance type**](#5-update-your-instance-type).\
-> It is easy to change the instance type of your instance in case you need more processing power. You are likely to incur costs if you use an instance type other than the **t2.micro** instance type, but see the next lesson [AWS costs explained](https://cloud-span.github.io/create-aws-instance-3-costs-explained/), episode [The AWS Free Tier](https://cloud-span.github.io/create-aws-instance-3-costs-explained/01-free-tier/index.html), where it is explained how you can use resources over the Free-Tier limits for short periods of time without incurring costs during the Free Tier period.
+> It is easy to change the instance type of your instance in case you need more processing power. However, you will incur costs if you use an instance type other than the **t2.micro** instance type.
 {: .callout}
 
 # 1. Setup billing alerts
-You have logged in to the AWS Console. To setup billing alerts, go to the **Billing Dashboard** using the drop-down menu *user@accountalias* (or *user@accountnumber* if you did not create an alias) on the top right.
+You have logged in to the AWS Console. To setup billing alerts, go to the **Billing Dashboard** using the drop-down menu *user@accountalias* (or *user@accountnumber* if you did not create an alias) on the top right, see the screenshot below.
 
 On the Billing Dashboard page the region will be set to 'Global' on the top right. 
 
@@ -72,7 +72,7 @@ The operations to manage your instance are: *stop*, *start*, *reboot* and *termi
 
 When you create and launch an instance it will be in the state *Pending* until its initialisation is complete --- a process that takes 1-2 minutes. Its state will then change to *Running* and will be in this state until you stop it. 
 
-To stop (or to perform any other operation on) your instance you need to be in the **Instances** menu page. Type **ec2** in the AWS search box and press Enter. Check the default region is **Ireland**; set it thus if not.  Then on the left navigation pane, click on **Instances**. 
+To stop (or to perform any other operation on) your instance you need to be in the **Instances** menu page. Type **ec2** in the AWS search box at the top and press Enter. Check the default region is **Ireland**; set it thus if not.  Then on the left navigation pane, click on **Instances**. 
 
 You should see your instance listed with a state of *Pending* or *Running*. Check the box to the left of your instance entry and then click on the drop-down menu **Instance state**. The drop-down menu shows the operations you can perform while your instance is *Running*, namely: Stop instance, Reboot instance and Terminate instance. 
 
